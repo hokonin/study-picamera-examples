@@ -28,7 +28,7 @@ def upload():
         'token' : SLACK_TOKEN,
         'channels' : [SLACK_CHANNEL],
     }
-    requets.post(SLACK_URL, params = payload, files = image)
+    requests.post(SLACK_URL, params = payload, files = image)
 
 
 class PersonDetector(object):
