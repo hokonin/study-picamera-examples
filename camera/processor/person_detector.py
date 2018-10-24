@@ -5,18 +5,39 @@ import imutils
 import time
 import numpy as np
 import cv2
+import os
+import sys
+import requests
 
 
 net = cv2.dnn.readNetFromCaffe('/home/pi/models/MobileNetSSD_deploy.prototxt',
         '/home/pi/models/MobileNetSSD_deploy.caffemodel')
 
+try:
+    SLACK_URL = os.environ['SLACK_URL']
+    SLACK_TOKEN = os.environ['SLACK_TOKEN']
+    SLACK_CHANNEL = os.environ['SLACK_CHANNEL']
+except KeyError as e:
+    sys.exit('Coudn\'t find env: {}'.format(e))
+
+
+def upload():
+    image = { 'file' : open('hello.jpg', 'rb')
+    payload = {
+        'filename' : 'hello.jpg',
+        'token' : SLACK_TOKEN,
+        'channels' : [SLACK_CHANNEL],
+    }
+    requets.post(SLACK_URL, params = payload, files = image)
+
 
 class PersonDetector(object):
     def __init__(self, flip = True):
+        self.last_upload = time.time()     # データ送信時間を保持
         self.vs = PiVideoStream(resolution=(800, 608)).start()
         self.flip = flip
         time.sleep(2.0)
-        
+
     def __del__(self):
         self.vs.stop()
 
@@ -59,5 +80,10 @@ class PersonDetector(object):
         
         if count > 0:
             print('Count: {}'.format(count))
-                
+            elapsed = time.time() - selft.last_upload
+            if elapsed > 60:
+                cv2.imwrite('hello.jpg', frame)
+                upload()
+                self.last_upload = time.time()
+
         return frame
