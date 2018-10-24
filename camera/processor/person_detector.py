@@ -22,7 +22,7 @@ except KeyError as e:
 
 
 def upload():
-    image = { 'file' : open('hello.jpg', 'rb') }
+    image = { 'file' : open('/home/pi/hello.jpg', 'rb') }
     payload = {
         'filename' : 'hello.jpg',
         'token' : SLACK_TOKEN,
@@ -82,7 +82,7 @@ class PersonDetector(object):
             print('Count: {}'.format(count))
             elapsed = time.time() - self.last_upload
             if elapsed > 60:
-                cv2.imwrite('hello.jpg', frame)
+                cv2.imwrite('/home/pi/hello.jpg', frame)
                 upload()
                 self.last_upload = time.time()
 
