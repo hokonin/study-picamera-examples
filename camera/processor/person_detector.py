@@ -27,6 +27,8 @@ def upload():
         'filename' : 'hello.jpg',
         'token' : SLACK_TOKEN,
         'channels' : [SLACK_CHANNEL],
+        'title' : 'ƒ^ƒCƒgƒ‹',
+        'initial_comment' : '‚Ó‚Â‚Â‚©‚à‚Ì‚Å‚·‚ª',
     }
     requests.post(SLACK_URL, params = payload, files = image)
 
@@ -73,7 +75,7 @@ class PersonDetector(object):
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype('int')
             label = '{}: {:.2f}%'.format('Person', confidence * 100)
-            cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
+            cv2.rectangle(frame, (startX, startY), (endX, endY), (127, 255, 0), 2)
             y = startY - 15 if startY - 15 > 15 else startY + 15
             cv2.putText(frame, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
             count += 1
