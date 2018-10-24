@@ -22,7 +22,7 @@ except KeyError as e:
 
 
 def upload():
-    image = { 'file' : open('hello.jpg', 'rb')
+    image = { 'file' : open('hello.jpg', 'rb') }
     payload = {
         'filename' : 'hello.jpg',
         'token' : SLACK_TOKEN,
