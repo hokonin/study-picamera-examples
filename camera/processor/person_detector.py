@@ -27,15 +27,15 @@ def upload():
         'filename' : 'hello.jpg',
         'token' : SLACK_TOKEN,
         'channels' : [SLACK_CHANNEL],
-        'title' : u'タイトル',
-        'initial_comment' : u'ふつつかものですが',
+        'title' : u'繧ｿ繧､繝医Ν',
+        'initial_comment' : u'縺ｵ縺､縺､縺九ｂ縺ｮ縺ｧ縺吶′',
     }
     requests.post(SLACK_URL, params = payload, files = image)
 
 
 class PersonDetector(object):
     def __init__(self, flip = True):
-        self.last_upload = time.time()     # データ送信時間を保持
+        self.last_upload = time.time()     # 繝�繝ｼ繧ｿ騾∽ｿ｡譎る俣繧剃ｿ晄戟
         self.vs = PiVideoStream(resolution=(800, 608)).start()
         self.flip = flip
         time.sleep(2.0)
